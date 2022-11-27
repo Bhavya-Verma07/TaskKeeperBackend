@@ -1,0 +1,19 @@
+GET http://localhost:3001/todos
+
+###
+
+POST http://localhost:3001/todo/new
+Content-Type: application/json
+
+{
+    "text": "Oder popcorn"
+}
+
+###
+
+DELETE http://localhost:3001/todo/delete/637c4299afa17a0ce392d42c
+
+
+###
+
+PUT http://localhost:3001/todo/complete/637c3fb060ef8baffbce9d4c
