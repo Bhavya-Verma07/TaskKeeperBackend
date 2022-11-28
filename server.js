@@ -1,15 +1,17 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+require("dotenv").config();
+const path = require("path");
  
-
+const port = process.env.PORT || 5000; // process.env.PORT gives the port of hosted application, which is automatically defined by deployment platform
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/mern-todo", {
+  .connect(process.env.MONGODB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -46,7 +48,21 @@ app.get('/todo/complete/:id/:type', async(req, res)=>{
    res.json(todo);
 })
 
-app.listen(3001, () => console.log("Server started on port 3001"));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(
+      path.resolve(__dirname + "/client/build/index.html"),
+      function (err) {
+        if (err) {
+          console.log(err);
+        }
+      }
+    );
+  });
+}
+
+app.listen(port, () => console.log(`Server started on port ${port}`));
 
 //for datebase connection
 //code for creating server

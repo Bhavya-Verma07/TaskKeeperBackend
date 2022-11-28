@@ -1,0 +1,6 @@
+steps required for deployment:
+1. your database should be remotely hosted(atlas)
+2. your port should be dynamically defind 
+3. shift your frontend build into backend
+4. write code for accesssing frontend
+5. write start command in packagre.json
