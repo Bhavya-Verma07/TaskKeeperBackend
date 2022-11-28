@@ -4,7 +4,7 @@ const cors = require("cors");
 require("dotenv").config();
 const path = require("path");
  
-const port = process.env.PORT || 5000; // process.env.PORT gives the port of hosted application, which is automatically defined by deployment platform
+const port = process.env.PORT || 5000;
 const app = express();
 
 app.use(express.json());
@@ -18,7 +18,7 @@ mongoose
   .then(() => console.log("Connected to DB"))
   .catch(console.error);
 
-const Todo = require("./models/Todo");
+const Todo = require("./models/todo");
 
 app.get("/todos", async (req, res) => {
   const todos = await Todo.find();
