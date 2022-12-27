@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 const path = require("path");
- 
+
 const port = process.env.PORT || 5000;
 const app = express();
 
@@ -40,15 +40,17 @@ app.delete("/todo/delete/:id", async (req, res) => {
   res.json(result);
 });
 
-app.get('/todo/complete/:id/:type', async(req, res)=>{
-   const todo = await Todo.findByIdAndUpdate(req.params.id, {complete: req.params.type}) ;
+app.get("/todo/complete/:id/:type", async (req, res) => {
+  const todo = await Todo.findByIdAndUpdate(req.params.id, {
+    complete: req.params.type,
+  });
 
   //  todo.complete = !todo.complete;
 
-   res.json(todo);
-})
+  res.json(todo);
+});
 
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV !== "production") {
   app.use(express.static("client/build"));
   app.get("*", (req, res) => {
     res.sendFile(

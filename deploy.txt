@@ -1,6 +1,49 @@
 steps required for deployment:
-1. your database should be remotely hosted(atlas)
+1. your database should be remotely hosted(eg. mongoDB atlas)
 2. your port should be dynamically defind 
-3. shift your frontend build into backend
+    ex.   
+    mongoose
+  .connect(process.env.MONGODB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("Connected to DB"))
+  .catch(console.error);
+
+
+3. Shift your frontend build into backend
+    i.e. 
+    after running 'run npm build' command in frontend terminal, a folder named client-inside it,build is created.
+ move this folder in backend folder.
+
+
+
+
 4. write code for accesssing frontend
-5. write start command in packagre.json
+    i.e.  
+    write the folllowing code in server.js file, just above app.listen part
+
+     if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(
+      path.resolve(__dirname + "/client/build/index.html"),
+      function (err) {
+        if (err) {
+          console.log(err);
+        }
+      }
+    );
+  });
+}
+
+
+5. write start command in package.json
+    i.e. node server.js
+
+
+Deploying on render:
+1. name
+2. npm install(in build command)
+3. node server.js/ index.js
+4. create environment in render     
