@@ -18,13 +18,16 @@ mongoose
   .then(() => console.log("Connected to DB"))
   .catch(console.error);
 
+
+
+
 const Todo = require("./models/todo");
 
-app.get("/todos", async (req, res) => {
-  const todos = await Todo.find();
+// app.get("/todos", async (req, res) => {
+//   const todos = await Todo.find();
 
-  res.json(todos);
-});
+//   res.json(todos);
+// });
 app.post("/todo/new", (req, res) => {
   const todo = new Todo({
     text: req.body.text,
